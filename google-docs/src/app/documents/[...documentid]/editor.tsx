@@ -2,6 +2,11 @@
 import React from 'react'
 import {useEditor, EditorContent} from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
+import ImageResize from 'tiptap-extension-resize-image'
+import Image from '@tiptap/extension-image'
+import {TableKit} from '@tiptap/extension-table' 
+import { BulletList, TaskItem, TaskList } from '@tiptap/extension-list'
+import CodeBlock from '@tiptap/extension-code-block'
 
 const Editor = () => {
     const editor = useEditor({
@@ -11,9 +16,12 @@ const Editor = () => {
                 class:"focus:outline-none border print:border-0 bg-white border-[#C7C7C7] flex flex-col min-h-[1054px] w-[816px] pt-10 pr-14 pb-10 cursor-text"
             }
         },
-        extensions: [StarterKit],
+        extensions: [StarterKit,BulletList,TaskList,CodeBlock,TableKit,Image,ImageResize,
+          TaskItem.configure({
+            nested: true,
+          })],
         content: '<p>Hello World! 🌎️</p>',
-        // Don't render immediately on the server to avoid SSR issues
+
         immediatelyRender: false,
       })
   return (
@@ -26,4 +34,4 @@ const Editor = () => {
   )
 }
 
-export default Editor
+export default Editor;
