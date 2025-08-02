@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@radix-ui/react-dialog": "^1.1.14",
     "@radix-ui/react-dropdown-menu": "^2.1.15",
     "@radix-ui/react-separator": "^1.1.7",
     "@radix-ui/react-slot": "^1.2.3",
@@ -16,8 +17,10 @@
     "@tiptap/extension-heading": "^3.0.7",
     "@tiptap/extension-highlight": "^3.0.9",
     "@tiptap/extension-image": "^3.0.7",
+    "@tiptap/extension-link": "^3.0.9",
     "@tiptap/extension-list": "^3.0.7",
     "@tiptap/extension-table": "^3.0.7",
+    "@tiptap/extension-text-align": "^3.0.9",
     "@tiptap/extension-text-style": "^3.0.9",
     "@tiptap/extension-underline": "^3.0.8",
     "@tiptap/pm": "^3.0.7",
