@@ -2,7 +2,7 @@
 
 DOC-PIT is a web-based document editor built using Next.js, Tailwind CSS, and TipTap editor. This editor is designed for rich text editing with features like tables, lists, image resizing, and more. It can be used to create and manage documents efficiently with an intuitive interface.
 
-Deployment
+## Deployment
 This project is deployed using Vercel. You can view the live demo here: [https://doc-pit-document-editor-obes.vercel.app/]
 ## Features
 
@@ -36,11 +36,10 @@ This project is deployed using Vercel. You can view the live demo here: [https:/
 4.Start the development server:npm run dev
 5.Visit http://localhost:3000 to see the editor in action.
 
-License
-This project is licensed under the MIT License - see the LICENSE file for more details.
 
 
-Acknowledgments
+
+## Acknowledgments
 TipTap: A powerful rich-text editor. (https://tiptap.dev/)
 
 Next.js: A React framework for production. (https://nextjs.org/)
