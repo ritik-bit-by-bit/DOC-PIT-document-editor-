@@ -1,13 +1,18 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import {
   AlignCenterIcon,
   AlignJustifyIcon,
   AlignLeftIcon,
   AlignRightIcon,
   BoldIcon,
+  CaseLowerIcon,
+  ChartScatterIcon,
   ChevronDownIcon,
   Circle,
+  Code,
+  Code2Icon,
+  CodeIcon,
   HighlighterIcon,
   Icon,
   ImageIcon,
@@ -23,9 +28,11 @@ import {
   RemoveFormattingIcon,
   SearchIcon,
   SpellCheckIcon,
+  Tally1Icon,
   UnderlineIcon,
   Undo2Icon,
   UploadIcon,
+  WholeWordIcon,
 } from "lucide-react";
 import {
   Dialog,
@@ -38,17 +45,124 @@ import {
 } from "@/components/ui/dialog"
 import { cn } from "@/lib/utils";
 import useEditorStore from "@/store/use-editor-store";
-import { Separator } from "@/components/ui/separator";
-import Underline from "@tiptap/extension-underline";
 import {type ColorResult,SketchPicker,CirclePicker} from 'react-color';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { FontSize, LineHeight } from "@tiptap/extension-text-style";
 import { DropdownMenuItem } from "@radix-ui/react-dropdown-menu";
-import { FontSizeExtension } from "@/extensions/font-size";
+import { Separator } from "@/components/ui/separator";
+import { EditorContent, useEditor, useEditorState } from "@tiptap/react";
+interface EditorState {
+  charactersCount: number;
+  wordsCount: number;
+}
+const SeparaterIcon =()=>{
+  return(
+    <div className="text-gray-400">
+      |
+    </div>
+  )
+}
+const CountCharacters: React.FC = () => {
+  const { editor } = useEditorStore() // Assuming editor is stored in a store
+
+  const [characterCount, setCharacterCount] = useState(0)
+  const [wordCount, setWordCount] = useState(0)
+
+  useEffect(() => {
+    if (editor) {
+      const updateCounts = () => {
+        const characters = editor.storage.characterCount.characters()
+        const words = editor.storage.characterCount.words()
+        setCharacterCount(characters)
+        setWordCount(words)
+      }
+
+      updateCounts() // Update counts initially
+
+      // Add an event listener for updates to the editor content
+      editor.on('update', updateCounts)
+
+      // Cleanup listener on unmount
+      return () => {
+        editor.off('update', updateCounts)
+      }
+    }
+  }, [editor])
+
+  if (!editor) {
+    return null
+  }
+
+  return (
+    <div className="flex flex-row items-center gap-x-3">
+      <CaseLowerIcon className="size-5"/>
+      <div className="size-4 mb-2">{characterCount}</div>
+      <WholeWordIcon className="size-5"/>
+      <div className="size-4 mb-2">{wordCount}</div>
+    </div>
+  )
+}
+
+const CodeBlockButton = () => {
+  const { editor } = useEditorStore();
+
+  const languages = [
+    { label: "Press Ctrl+Enter to exit", value: "" },
+    { label: "JavaScript", value: "javascript" },
+    { label: "Python", value: "python" },
+    { label: "HTML", value: "html" },
+    { label: "CSS", value: "css" },
+    { label: "Java", value: "java" },
+    {label:"C++",value:"cpp"},
+    {label:"C#",value:"csharp"},
+    {label:"PHP",value:"php"},
+    {label:"Ruby",value:"ruby"},
+    {label:"Swift",value:"swift"},
+    {label:"Go",value:"go"},
+    // Add more languages as needed
+  ];
+
+  const insertCodeBlock = (language: string) => {
+    console.log("Inserting code block with language:", language);
+
+    // Ensure editor exists and then insert a code block with the selected language
+    editor?.chain().focus().toggleCodeBlock({language}).run(); // Fixed here
+  };
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        {/* <button className="h-7 min-w-7 shrink-0 flex flex-col items-center justify-center rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm">
+          <Code className="size-4" />
+        </button> */}
+        <button
+            onClick={() => editor?.chain().focus().toggleCodeBlock().run()}
+            className={editor?.isActive('codeBlock') ? 'is-active' : ''}
+          >
+            <CodeIcon className="size-4" />
+          </button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className="p-1 flex flex-col gap-y-1">
+        {languages.map(({ label, value }) => (
+          <button
+            key={value}
+            onClick={() => insertCodeBlock(value)}
+            className={cn(
+              "flex items-center gap-x-2 px-2 py-1 rounded-sm hover:bg-neutral-200/80"
+            )}
+          >
+            <span className="text-sm">{label}</span>
+          </button>
+        ))}
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+};
+
+
 const LineHeightButton = () => {
   const { editor } = useEditorStore();
   const LineHeights=[{
@@ -446,7 +560,6 @@ const ToolbarButton = ({
 
 const ToolBar = () => {
   const { editor } = useEditorStore();
-  console.log("ToolBar editor :", { editor });
   const sections: {
     label: string;
     Icon: LucideIcon;
@@ -523,7 +636,7 @@ const ToolBar = () => {
   ];
 
   return (
-    <div className="bg-[#d5dae0] px-2.5 py-0.5 rounded-[14px] min-h-[40px] flex items-center gap-x-2 overflow-x-auto">
+    <div className="bg-[#d5dae0] px-2.5 py-0.5 rounded-[14px] min-h-[40px] flex items-center gap-x-4.5 overflow-x-auto">
       {sections[0].map((item) => (
         <ToolbarButton
           key={item.label}
@@ -533,11 +646,11 @@ const ToolBar = () => {
           isActive={item.isActive}
         />
       ))}
-      {/* <Separator orientation="vertical" /> */}|
+      <SeparaterIcon/>
       <FontFamilyButton />
-      {/* <Separator orientation="vertical" /> */}|
+      <SeparaterIcon/>
       <HeadingLevelButton/>
-      {/* <Separator orientation="vertical" /> */}|
+      <SeparaterIcon/>
       {sections[1].map((item) => (
         <ToolbarButton
           key={item.label}
@@ -547,9 +660,9 @@ const ToolBar = () => {
           isActive={item.isActive}
         />
       ))}
-      |
+      <SeparaterIcon/>
       <FontSizeButton/>
-      |
+      <SeparaterIcon/>
       <TextColourButton/>
       <HighLightColourButton/>
       <ImageButton/>
@@ -557,7 +670,7 @@ const ToolBar = () => {
       <LineHeightButton/>
 
       
-      {/* TODO Font Family*/}|
+      <SeparaterIcon/>
       {sections[2].map((item) => (
         <ToolbarButton
           key={item.label}
@@ -567,7 +680,10 @@ const ToolBar = () => {
           isActive={item.isActive}
         />
       ))}
-      {/* TODO Heading*/}|{/* TODO Font Size*/}|
+      <SeparaterIcon/>
+      <CodeBlockButton/>
+      <SeparaterIcon/>
+      <CountCharacters/>
     </div>
   );
 };

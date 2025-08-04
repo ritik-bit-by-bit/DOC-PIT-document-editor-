@@ -62,7 +62,8 @@ const Navbar = () => {
           />
         </Link>
         <div className="flex flex-col">
-          DocumentInput
+          &nbsp;
+          DOC-PIT Editor
           <div className="flex">
             <Menubar className="border-none bg-transparent shadow-none h-auto p-0">
               <MenubarMenu>
