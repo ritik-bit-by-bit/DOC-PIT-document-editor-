@@ -36,7 +36,7 @@ import {
 } from "@/components/ui/dialog"
 import { cn } from "@/lib/utils";
 import useEditorStore from "@/store/use-editor-store";
-import {type ColorResult,SketchPicker,CirclePicker} from 'react-color';
+import { ColorResult,SketchPicker,CirclePicker} from 'react-color';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -50,7 +50,7 @@ const SeparaterIcon =()=>{
     </div>
   )
 }
-const CountCharacters: React.FC = () => {
+const CountCharacters = () => {
   const { editor } = useEditorStore() // Assuming editor is stored in a store
 
   const [characterCount, setCharacterCount] = useState(0)
@@ -110,7 +110,7 @@ const CodeBlockButton = () => {
     // Add more languages as needed
   ];
 
-  const insertCodeBlock = (language: string) => {
+  const insertCodeBlock = (language) => {
     console.log("Inserting code block with language:", language);
 
     // Ensure editor exists and then insert a code block with the selected language
@@ -198,7 +198,7 @@ const FontSizeButton=()=>{
   const[isEditing,setIsEditing]=useState(false);
   
    
-  const updateFontSize =(newSize:string)=>{
+  const updateFontSize =(newSize)=>{
     const size = parseInt(newSize);
     if(!isNaN(size) && size >0){ // Check the available commands
        editor?.chain().focus().setFontSize(`${size}px`).run();
@@ -207,14 +207,14 @@ const FontSizeButton=()=>{
       setIsEditing(false);
     }
   }
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e) => {
     setInputValue(e.target.value);  // Update inputValue state
   };
   
   const handleInputBlur = ()=>{
     updateFontSize(inputValue);
   }
-  const handleKeyDown = (e:React.KeyboardEvent<HTMLInputElement>)=>{
+  const handleKeyDown = (e)=>{
     if(e.key==="Enter"){
       e.preventDefault();
       updateFontSize(inputValue);
@@ -303,7 +303,7 @@ const ImageButton = ()=>{
   const [isDialogueOpen , setIsDialogueOpen]=useState(false);
   const [imageUrl,setImageUrl] = useState("");
    
-  const onChange = (src:string)=>{
+  const onChange = (src)=>{
      editor?.chain().focus().setImage({src}).run();
   }
   const onUpload =()=>{
@@ -311,7 +311,7 @@ const ImageButton = ()=>{
     input.type = "file";
     input.accept = "image/*";
     input.onchange = (e)=>{
-      const file = (e.target as HTMLInputElement).files?.[0];
+      const file = (e.target).files?.[0];
       if(file){
       const imageUrl = URL.createObjectURL(file);
       onChange(imageUrl);
@@ -369,7 +369,7 @@ const ImageButton = ()=>{
 const TextColourButton = () => {
   const { editor } = useEditorStore();
   const value = editor?.getAttributes("textStyle").textColor|| "#000000";
-  const onChange = (color:ColorResult)=>{
+  const onChange = (color)=>{
     editor?.chain().focus().setColor(color.hex).run();
   };
   return (
@@ -391,7 +391,7 @@ const TextColourButton = () => {
 const HighLightColourButton = () => {
   const { editor } = useEditorStore();
   const value = editor?.getAttributes('highlight').color|| "#000000";
-  const onChange = (color: ColorResult) => {
+  const onChange = (color) => {
     editor?.chain().focus().setMark('highlight', { color: color.hex }).run();
   };
   return (
@@ -407,14 +407,14 @@ const HighLightColourButton = () => {
     </DropdownMenu>
   );
 }
-interface Heading {
-  label: string;
-  value: number;
-  fontSize: string;
-}
+// interface Heading {
+//   label: string;
+//   value: number;
+//   fontSize: string;
+// }
 const HeadingLevelButton=()=>{
   const {editor}=useEditorStore();
-  const heading:Heading[] =[
+  const heading =[
     {label:"Normal text",value:0,fontSize:"16px"},
     {label:"Heading 1",value:1,fontSize:"24px"},
     {label:"Heading 2",value:2,fontSize:"20px"},
@@ -449,7 +449,7 @@ const HeadingLevelButton=()=>{
           "flex itmes-center gap-x-2 px-2 py-1 rounded-sm hover:bg-neutral-200/80",
           (value===0 && !editor?.isActive("heading"))|| editor?.isActive("heading",{level:value}) && 'bg-neutral-200/80'
         )}
-        onClick={()=>editor?.chain().focus().setHeading({level:value as any}).run()}
+        onClick={()=>editor?.chain().focus().setHeading({level:value }).run()}
       >
   {label}
         </button>
@@ -505,19 +505,19 @@ const FontFamilyButton = () => {
     </DropdownMenu>
   );
 };
-interface ToolbarButtonProps {
-  onClick?: () => void;
-  isActive?: boolean;
-  icon: LucideIcon;
-  label: string; // Change Label to label to match the prop name
-}
+// interface ToolbarButtonProps {
+//   onClick?: () => void;
+//   isActive?: boolean;
+//   icon: LucideIcon;
+//   label: string; // Change Label to label to match the prop name
+// }
 
 const ToolbarButton = ({
   onClick,
   isActive = false, // Default to false if undefined
   icon: Icon,
   label, // Rename this to match the prop name
-}: ToolbarButtonProps) => {
+}) => {
   const [isHovered, setIsHovered] = useState(false);
   return (
     <div
@@ -549,12 +549,7 @@ const ToolbarButton = ({
 
 const ToolBar = () => {
   const { editor } = useEditorStore();
-  const sections: {
-    label: string;
-    Icon: LucideIcon;
-    onClick?: () => void;
-    isActive?: boolean;
-  }[][] = [
+  const sections = [
     [
       {
         label: "Undo",

@@ -20,6 +20,8 @@ import { all, createLowlight } from 'lowlight'
 import { CharacterCount } from '@tiptap/extensions'
 
 
+
+
 // Initialize lowlight instance
 const lowlight = createLowlight(all);
 
@@ -61,7 +63,9 @@ const Editor = () => {
       BulletList,
       TaskList,
       TableKit,
-      Image as any,
+      Image.configure({
+        allowBase64: true,
+      }) ,
       ImageResize,
       Underline,
       TextStyle,
@@ -91,7 +95,7 @@ const Editor = () => {
       CodeBlockLowlight.configure({
         lowlight, // Provide the lowlight instance for syntax highlighting
       })
-    ],
+    ] ,
     content: '<p>Welcome to the DOC-PIT editor 🌎️</p>',
 
     immediatelyRender: false,
