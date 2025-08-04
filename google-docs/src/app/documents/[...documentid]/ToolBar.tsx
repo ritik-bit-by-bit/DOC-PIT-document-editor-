@@ -7,14 +7,9 @@ import {
   AlignRightIcon,
   BoldIcon,
   CaseLowerIcon,
-  ChartScatterIcon,
   ChevronDownIcon,
-  Circle,
-  Code,
-  Code2Icon,
   CodeIcon,
   HighlighterIcon,
-  Icon,
   ImageIcon,
   ItalicIcon,
   ListCollapseIcon,
@@ -28,7 +23,6 @@ import {
   RemoveFormattingIcon,
   SearchIcon,
   SpellCheckIcon,
-  Tally1Icon,
   UnderlineIcon,
   Undo2Icon,
   UploadIcon,
@@ -37,11 +31,8 @@ import {
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog"
 import { cn } from "@/lib/utils";
 import useEditorStore from "@/store/use-editor-store";
@@ -52,12 +43,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { DropdownMenuItem } from "@radix-ui/react-dropdown-menu";
-import { Separator } from "@/components/ui/separator";
-import { EditorContent, useEditor, useEditorState } from "@tiptap/react";
-interface EditorState {
-  charactersCount: number;
-  wordsCount: number;
-}
 const SeparaterIcon =()=>{
   return(
     <div className="text-gray-400">
@@ -422,10 +407,14 @@ const HighLightColourButton = () => {
     </DropdownMenu>
   );
 }
-
+interface Heading {
+  label: string;
+  value: number;
+  fontSize: string;
+}
 const HeadingLevelButton=()=>{
   const {editor}=useEditorStore();
-  const heading =[
+  const heading:Heading[] =[
     {label:"Normal text",value:0,fontSize:"16px"},
     {label:"Heading 1",value:1,fontSize:"24px"},
     {label:"Heading 2",value:2,fontSize:"20px"},

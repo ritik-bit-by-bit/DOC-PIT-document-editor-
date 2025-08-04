@@ -1,8 +1,5 @@
 'use client'
 import React from 'react'
-import SearchInput from './search-input';
-import Link from 'next/link';
-import Image from 'next/image';
 import Navbar from './navbar';
 import TemplateGallery from './Template'
 const NewDoCSection = () => {

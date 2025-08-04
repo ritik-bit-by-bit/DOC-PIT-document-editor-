@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { FileText, Search, Zap, Shield, Users, Star, DockIcon, Edit2Icon, Bell, MessageCircleIcon, PersonStanding, Command } from "lucide-react";
+import { FileText, Zap, Users, Star, DockIcon, Edit2Icon, Bell, MessageCircleIcon, PersonStanding, Command } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -81,11 +81,12 @@ const Index = () => {
     {
       icon: <Star className="w-8 h-8" />,
       title: "  Free Premium Features",
-      description: <div className="flex flex-col justify-between gap-y-1"><div className="items-center flex flex-row"><Bell/>Notifications System</div>
+      description: <span className="flex flex-col justify-between gap-y-1">
+        <span className="items-center flex flex-row"><Bell/>Notifications System</span>
         
-      <div className="items-center flex flex-row" ><MessageCircleIcon/> Organization Invites</div>
-      <div className="items-center flex flex-row"><PersonStanding/>Real-time Collaboration & Database </div>
-      <div className="items-center flex flex-row"><Command/> Replies and Mention</div></div>
+      <span className="items-center flex flex-row" ><MessageCircleIcon/> Organization Invites</span>
+      <span className="items-center flex flex-row"><PersonStanding/>Real-time Collaboration & Database </span>
+      <span className="items-center flex flex-row"><Command/> Replies and Mention</span></span>
     }
   ];
 

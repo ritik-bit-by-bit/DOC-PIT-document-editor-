@@ -1,7 +1,7 @@
 "use client"
 import Image from "next/image";
 import Link from "next/link";
-import React, { use } from "react";
+import React from "react";
 // import DocumentInput from './document-input';
 import{BsFilePdf} from "react-icons/bs"
 import {
@@ -15,7 +15,7 @@ import {
   MenubarTrigger,
 } from "@/components/ui/menubar";
 import { MenubarSubContent, MenubarSubTrigger } from "@/components/ui/menubar";
-import { BoldIcon, FileJson2Icon, FilePenIcon, FilePlusIcon, FilesIcon, FileTextIcon, GlobeIcon, ItalicIcon, Menu, PrinterIcon, Redo2Icon, RemoveFormattingIcon, StrikethroughIcon, TextIcon, Trash2Icon, Underline, Undo2Icon } from "lucide-react";
+import { BoldIcon, FileJson2Icon, FilePenIcon, FilePlusIcon, FilesIcon, FileTextIcon, GlobeIcon, ItalicIcon,  PrinterIcon, Redo2Icon, RemoveFormattingIcon, StrikethroughIcon, TextIcon, Trash2Icon, Underline, Undo2Icon } from "lucide-react";
 import useEditorStore from "@/store/use-editor-store";
 const Navbar = () => {
     const {editor} = useEditorStore();

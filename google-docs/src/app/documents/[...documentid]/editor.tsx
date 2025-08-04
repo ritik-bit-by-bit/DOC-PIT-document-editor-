@@ -1,5 +1,5 @@
 'use client'
-import React, { ReactNode } from 'react'
+import React from 'react'
 import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import ImageResize from 'tiptap-extension-resize-image'

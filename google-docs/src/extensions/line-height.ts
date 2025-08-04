@@ -1,13 +1,13 @@
 import { Extension } from '@tiptap/core';
-import { LineHeight } from '@tiptap/extension-text-style';
 declare module '@tiptap/core' {
-  interface Commands<ReturnType> {
-    lineHeight: {
-      setLineHeight: (lineHeight: string) => ReturnType;
-      unsetLineHeight: () => ReturnType;
-    };
+    interface Commands<ReturnType> {
+      lineHeight: {
+        setLineHeight: (lineHeight: string) => ReturnType;
+        unsetLineHeight: () => ReturnType;
+      };
+    }
   }
-}
+  
 
   export const LineHeightExtension = Extension.create({
     name: 'lineHeight',

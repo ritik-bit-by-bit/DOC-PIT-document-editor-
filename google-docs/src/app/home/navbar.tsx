@@ -1,8 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { Search } from 'lucide-react'
-import SearchInput from './search-input'
 const Navbar = () => {
   return (
    <nav className='flex items-center h-full w-full'>

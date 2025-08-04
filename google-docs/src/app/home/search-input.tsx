@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { SearchIcon, XIcon } from "lucide-react";
-import React, { use, useRef, useState } from "react";
+import React, {  useRef, useState } from "react";
 import { useSearchParams } from "@/hooks/use-search-param";
 const SearchInput = () => {
 const[search,setSearch]=useSearchParams();
