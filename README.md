@@ -7,7 +7,7 @@ This project is deployed using Vercel. You can view the live demo here: [https:/
 ## Features
 
 - **Rich Text Editing**: Offers a rich set of text formatting options.
-- **Table Support**: Insert and manage tables within the document.
+- **Table Support**: Insert and manage tables within the document. 
 - **Image Resizing**: Resize and adjust images easily.
 - **Task List**: Create interactive to-do lists.
 - **Text Highlighting**: Apply multiple highlight colors to text.
